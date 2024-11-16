@@ -1,0 +1,19 @@
+B {'transactions_Id': [1, 4, 5, 6], 'UtX': [1, 1, 8, 2], 'UtE': [7, 3, 24, 5]}
+A {'transactions_Id': [1, 2, 4, 6], 'UtX': [1, 9, 1, 1], 'UtE': [6, 33, 2, 4]}
+E {'transactions_Id': [1, 2, 4, 7], 'UtX': [2, 2, 2, 6], 'UtE': [4, 31, 0, 12]}
+D {'transactions_Id': [2, 3, 5], 'UtX': [10, 5, 10], 'UtE': [21, 3, 14]}
+G {'transactions_Id': [2, 3, 5, 7], 'UtX': [6, 3, 3, 3], 'UtE': [15, 0, 11, 9]}
+C {'transactions_Id': [1, 2, 5, 6, 8], 'UtX': [4, 12, 8, 4, 4], 'UtE': [0, 3, 3, 0, 9]}
+F {'transactions_Id': [2, 5, 7, 8], 'UtX': [3, 3, 9, 9], 'UtE': [0, 0, 0, 0]}
+AE {'transactions_Id': [1, 2, 4], 'UtX': [3, 11, 3], 'UtE': [2, 2, 2]}
+AD {'transactions_Id': [2], 'UtX': [19], 'UtE': [10]}
+AG {'transactions_Id': [2], 'UtX': [15], 'UtE': [6]}
+AC {'transactions_Id': [1, 2, 6], 'UtX': [5, 21, 5], 'UtE': [4, 12, 4]}
+AF {'transactions_Id': [2], 'UtX': [12], 'UtE': [3]}
+GC {'transactions_Id': [2, 5], 'UtX': [18, 11], 'UtE': [12, 8]}
+GF {'transactions_Id': [2, 5, 7], 'UtX': [9, 6, 12], 'UtE': [3, 3, 9]}
+GAE {'transactions_Id': [2], 'UtX': [17], 'UtE': [11]}
+GAD {'transactions_Id': [2], 'UtX': [25], 'UtE': [19]}
+GAG {'transactions_Id': [2], 'UtX': [21], 'UtE': [15]}
+GAC {'transactions_Id': [2], 'UtX': [27], 'UtE': [21]}
+GAF {'transactions_Id': [2], 'UtX': [18], 'UtE': [12]}
