@@ -1,15 +1,15 @@
 transactions = {
     "T1": [("b", 4), ("p", 2)],
     "T2": [("c", 1), ("e", 1)],
-    "T3": [("e", 1), ("t", 1), ("ts", 1)],
+    "T3": [("e", 1), ("t", 1), ("f", 1)],
     "T4": [("b", 1), ("p", 3)],
     "T5": [("t", 1)],
     "T6": [("e", 1), ("p", 1), ("t", 1)],
     "T7": [("b", 1), ("c", 2), ("p", 4)],
     "T8": [("p", 2), ("t", 1)],
-    "T9": [("p", 3), ("t", 1), ("ts", 1)],
+    "T9": [("p", 3), ("t", 1), ("f", 1)],
     "T10": [("b", 1),("c", 2), ("p", 4)],
-    "T11": [("e", 1),("ts", 1)]
+    "T11": [("e", 1),("f", 1)]
 }
 item_EU = {
     "b": 2,
@@ -17,7 +17,7 @@ item_EU = {
     "e": 4,
     "p": 2,
     "t": 10,
-    "ts": 10
+    "f": 10
 }
 ## [ ['ts'] , ['b'] ...]
 # def findCoverset(itemset):
@@ -134,17 +134,17 @@ def normalizeList(list):
     return(unique_tuples)
 
 def MineRemHUIs(minUtil):
-    i = 0
     while len(iList) >1 :
         tempList =[]
         for item1 in iList:
             print(" ")
-            for item2 in iList:
-                ## apriori herer
-                if (item1 != item2) and (tuple(sorted((item1, item2))) not in HUIs):
+            for item2 in I:
+                if ((item1 != item2) & (item2 not in item1) ) :
                     cov1 = iCov[item1]
                     cov2 = iCov[item2]
-                    S = (item1,item2)
+                    if(len(item1) == 1):
+                        S = (item1,item2)
+                    else: S = item1 + tuple(item2)
                     print("S =" + str(S))
                     cov_S = list(set(cov2).intersection(set(cov1)))
                     print("cov_S =" + str(cov_S))
@@ -155,9 +155,6 @@ def MineRemHUIs(minUtil):
                         if calculate_util(S) >= minUtil:
                             HUIs[S] = calculate_util(S)
                     else: print(str(item1) + " " + str(item2) + " no")
-        if i==2:
-            break
-        else : i+=1
         tempList= (normalizeList(tempList))
         iList.clear()
         iList.extend(tempList)
@@ -167,9 +164,18 @@ iUtil = {}
 iList = []
 HUIs= {}
 corHUI = {}
+I= []
+
+def init_I():
+    for key, val in transactions.items():
+        for value in val:
+            if value[0] not in I:
+                I.append(value[0])
+
 
 def main():
- 
+    init_I()
+
     eUtil = init_eUtil()
     cLine = 0
     FindUniqueItems(cLine)
@@ -198,6 +204,16 @@ def main():
         print(key,val)
     print("________________")
 
+    unique_dict = {} 
+    for key, value in HUIs.items():
+        if isinstance(key, tuple): 
+            sorted_key = tuple(sorted(key)) 
+        else: sorted_key = key 
+        if sorted_key not in unique_dict: 
+            unique_dict[sorted_key] = value 
+
+    for key,val in unique_dict.items():
+        print(key,val)
 
 
 
