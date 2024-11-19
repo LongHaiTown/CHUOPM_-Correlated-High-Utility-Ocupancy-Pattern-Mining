@@ -152,16 +152,51 @@ def add_Item_ul(total_order):
     for item in item_EU.keys():
         add_utility_list_to_UL([item], total_order)
 
-# Tìm tập mở rộng của một item
+# Lấy item mở rộng của itemset hiện tại
 def get_extension_set(itemset, total_order):
     last_item_index = total_order.index(itemset[-1]) 
     extension_set = total_order[last_item_index + 1:] 
     return extension_set
 
+#Tìm tập mở rộng 
+def find_Extension(pruned_UL):
+    extension_set = list(pruned_UL.keys())
+    return extension_set
 
 # Kết hợp item với tập mở rộng của chúng
-def connect_Item_with_extension()
+def connect_Item_with_extension(pruned_UL, total_order):
+    extension_set = find_Extension(pruned_UL)
+    new_combinations = []
+    for item in extension_set:
+        ext_set = get_extension_set([item], total_order)
+        for ext_item in ext_set:
+            new_combination = tuple(sorted([item, ext_item]))
+            if new_combination not in new_combinations:
+                new_combinations.append(new_combination)
+    return new_combinations
 
+# Tạo tổ hợp các item từ danh sách các item đã được cắt tỉa
+def generate_combinations(pruned_items):
+    combinations = []
+    for r in range(2, len(pruned_items) + 1):
+        combinations.extend(itertools.combinations(pruned_items, r))
+    return combinations
+
+# Tính utility-list cho các itemset vừa kết hợp
+def add_combinations_to_UL(combinations, total_order):
+    for comb in combinations:
+        utility_list = create_utility_list(comb, total_order)
+        UL[comb] = utility_list
+
+
+# Hàm kiểm tra các itemset đó có thỏa >= minUtil không
+def filter_combinations_by_util(minUtil):
+    filtered_combinations = {}
+    for comb, ul in UL.items():
+        total_util = sum(iutil for _, iutil, _ in ul)
+        if total_util >= minUtil:
+            filtered_combinations[comb] = ul
+    return filtered_combinations
 
 # def calculate_all_confidence(itemset, transactions):
 #     min_support = min([transactions.count(item) for item in itemset])
@@ -207,14 +242,37 @@ def connect_Item_with_extension()
 
 #if __name__ == "__main__":
     #main()
+# Tạo tổ hợp các item từ danh sách các item đã được cắt tỉa
 def main():
     get_user_inputs()
-    eucs = build_eucs(transactions, item_EU)
-    print_eucs(eucs)
-    itemset = ['a', 'd']
     total_order = sorted(item_EU.keys())
-    utility_list = create_utility_list(itemset, total_order)
-    print(utility_list)
-    add_Item_ul(total_order)  # Truyền total_order vào hàm
-    print("Pruned Utility List:", UL)
-if __name__ == "__main__": main()
+    
+    # Bước 1: Thêm utility-list của các item ban đầu vào UL
+    add_Item_ul(total_order)
+    
+    # Bước 2: Cắt tỉa các item có utility nhỏ hơn minUtil
+    pruned_UL = prune_items_from_UL(minUtil)
+    print("Pruned Utility List:", pruned_UL)
+    
+    # Bước 3: Tạo các tổ hợp các item từ danh sách các item đã cắt tỉa
+    pruned_items = [item[0] for item in pruned_UL.keys()]  # Extracting single items from tuples
+    print("Pruned Items:", pruned_items)
+    combinations = generate_combinations(pruned_items)
+    print("Generated Combinations:", combinations)
+    
+    # Bước 4: Thêm các tổ hợp vào UL và in ra utility list của từng tổ hợp
+    add_combinations_to_UL(combinations, total_order)
+    
+    for comb in combinations:
+        print(f"Utility List for {comb}: {UL.get(comb)}")
+
+    # Bước 5: Lọc các tổ hợp có utility lớn hơn minUtil
+    filtered_combinations = filter_combinations_by_util(minUtil)
+    print("Filtered Combinations by Utility:", filtered_combinations)
+    
+    # Hiển thị các tổ hợp có utility lớn hơn minUtil
+    for comb, ul in filtered_combinations.items():
+        print("Combination:", comb, "Utility List:", ul)
+
+if __name__ == "__main__":
+    main()
