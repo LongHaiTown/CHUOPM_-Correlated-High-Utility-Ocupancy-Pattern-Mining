@@ -86,6 +86,11 @@ def calculate_Item_TWU(itemset):
         TWU += calculate_Trans_utility(transactions[trans])
     return TWU
 
+def sort_items_by_TWU():
+    item_TWU = {item: calculate_Item_TWU([item]) for item in item_EU.keys()}
+    sorted_items = sorted(item_TWU.keys(), key=lambda x: item_TWU[x])
+    return sorted_items
+
 # Xây dựng mô hình EUCS
 def build_eucs(transactions, item_EU):
     items = sorted(item_EU.keys())
@@ -149,7 +154,7 @@ def add_utility_list_to_UL(itemset, total_order):
 
 # Thêm ul của các item
 def add_Item_ul(total_order):
-    for item in item_EU.keys():
+    for item in total_order:
         add_utility_list_to_UL([item], total_order)
 
 # Lấy item mở rộng của itemset hiện tại
@@ -198,6 +203,10 @@ def filter_combinations_by_util(minUtil):
             filtered_combinations[comb] = ul
     return filtered_combinations
 
+# Sắp xếp các tổ hợp theo TWU tăng dần
+def sort_combinations_by_TWU(combinations):
+    return sorted(combinations, key=lambda comb: calculate_Item_TWU(comb))
+
 # def calculate_all_confidence(itemset, transactions):
 #     min_support = min([transactions.count(item) for item in itemset])
 #     all_confidence = transactions.count(itemset) / min_support
@@ -245,7 +254,10 @@ def filter_combinations_by_util(minUtil):
 # Tạo tổ hợp các item từ danh sách các item đã được cắt tỉa
 def main():
     get_user_inputs()
-    total_order = sorted(item_EU.keys())
+    
+    # Sắp xếp total_order theo TWU tăng dần
+    total_order = sort_items_by_TWU()
+    print("Total Order sorted by TWU:", total_order)
     
     # Bước 1: Thêm utility-list của các item ban đầu vào UL
     add_Item_ul(total_order)
@@ -260,13 +272,17 @@ def main():
     combinations = generate_combinations(pruned_items)
     print("Generated Combinations:", combinations)
     
-    # Bước 4: Thêm các tổ hợp vào UL và in ra utility list của từng tổ hợp
-    add_combinations_to_UL(combinations, total_order)
+    # Bước 4: Sắp xếp các tổ hợp theo TWU tăng dần
+    sorted_combinations = sort_combinations_by_TWU(combinations)
+    print("Sorted Combinations by TWU:", sorted_combinations)
     
-    for comb in combinations:
+    # Bước 5: Thêm các tổ hợp vào UL và in ra utility list của từng tổ hợp
+    add_combinations_to_UL(sorted_combinations, total_order)
+    
+    for comb in sorted_combinations:
         print(f"Utility List for {comb}: {UL.get(comb)}")
 
-    # Bước 5: Lọc các tổ hợp có utility lớn hơn minUtil
+    # Bước 6: Lọc các tổ hợp có utility lớn hơn minUtil
     filtered_combinations = filter_combinations_by_util(minUtil)
     print("Filtered Combinations by Utility:", filtered_combinations)
     
