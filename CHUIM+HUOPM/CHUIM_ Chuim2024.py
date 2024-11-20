@@ -319,14 +319,14 @@ def main():
 
     FindLength1HUIs(10)
 
-    MineRemHUIs(10)
+    # MineRemHUIs(10)
     
     print("HUIs")
     
     for key,val in HUIs.items():
         print("-")
         print(key,val )
-        isProductiveInEdom1(key)
+        # isProductiveInEdom1(key)
 
     # print("________________")
     for key,val in HUIs.items():
