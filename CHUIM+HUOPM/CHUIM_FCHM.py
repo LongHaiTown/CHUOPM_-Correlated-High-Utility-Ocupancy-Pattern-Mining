@@ -20,6 +20,73 @@ item_EU = {
     'g': 1,
 }
 UL = {}
+countHUI = 0
+def read_data(file_path): 
+
+    """
+
+    Reads a file with item and value pairs, converting it into a transactional database.
+
+    
+
+    Args:
+
+        file_path (str): The path to the input text file.
+
+    
+
+    Returns:
+
+        dict: A transactional database with the format {"TID": [("item", value), ...]}.
+
+    """
+
+    with open(file_path, 'r') as file:
+
+        lines = file.readlines()
+
+        for idx, line in enumerate(lines):
+
+            # Parse each line
+
+            tid = f"T{idx + 1}"  # Transaction ID
+
+            items = line.strip().split()  # Split into item:value pairs
+
+            item_pairs = [
+
+                (f"{pair.split(':')[0]}", int(pair.split(':')[1])) for pair in items
+
+            ]
+
+            transactions[tid] = item_pairs
+
+
+
+def parse_utility(file_path):
+
+    try:
+
+        with open(file_path, 'r') as file:
+
+            for line in file:
+
+                if line.strip():  # Skip empty lines
+
+                    item_id, utility = line.strip().split(", ")
+
+                    item_name = f"{item_id.strip()}"  # Prefix item names
+
+                    item_EU[item_name] = int(utility.strip())  # Convert utility to integer
+
+    except FileNotFoundError:
+
+        print(f"Error: File not found at {file_path}")
+
+    except Exception as e:
+
+        print(f"Error: {e}")
+
 # Nhập các giá trị cần thiết
 def get_user_inputs():
     global minUtil
@@ -140,6 +207,7 @@ def create_utility_list(itemset, total_order):
 
 # Cắt tỉa các item có ul.util < minUtil bằng utility-list
 def prune_items_from_UL(minUtil):
+    global countHUI
     pruned_UL = {}
     for itemset, ul in UL.items():
         total_util = sum(iutil for _, iutil, _ in ul)
@@ -196,11 +264,13 @@ def add_combinations_to_UL(combinations, total_order):
 
 # Hàm kiểm tra các itemset đó có thỏa >= minUtil không
 def filter_combinations_by_util(minUtil):
+    global countHUI
     filtered_combinations = {}
     for comb, ul in UL.items():
         total_util = sum(iutil for _, iutil, _ in ul)
         if total_util >= minUtil:
             filtered_combinations[comb] = ul
+            countHUI += 1
     return filtered_combinations
 
 # Sắp xếp các tổ hợp theo TWU tăng dần
@@ -254,7 +324,6 @@ def sort_combinations_by_TWU(combinations):
 # Tạo tổ hợp các item từ danh sách các item đã được cắt tỉa
 def main():
     get_user_inputs()
-    
     # Sắp xếp total_order theo TWU tăng dần
     total_order = sort_items_by_TWU()
     print("Total Order sorted by TWU:", total_order)
@@ -289,6 +358,6 @@ def main():
     # Hiển thị các tổ hợp có utility lớn hơn minUtil
     for comb, ul in filtered_combinations.items():
         print("Combination:", comb, "Utility List:", ul)
-
+    print(countHUI)
 if __name__ == "__main__":
     main()
