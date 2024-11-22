@@ -1,22 +1,27 @@
 import ast
 
-# transactions = {
-#     "T1": [("b", 4), ("p", 2)],
-#     "T2": [("c", 1), ("e", 1)],
-#     "T3": [("e", 1), ("t", 1), ("f", 1)],
-#     "T4": [("b", 1), ("p", 3)],
-#     "T5": [("t", 1)],
-#     "T6": [("e", 1), ("p", 1), ("t", 1)],
-#     "T7": [("b", 1), ("c", 2), ("p", 4)],
-#     "T8": [("p", 2), ("t", 1)],
-#     "T9": [("p", 3), ("t", 1), ("f", 1)],
-#     "T10": [("b", 1),("c", 2), ("p", 4)],
-#     "T11": [("e", 1),("f", 1)]
-# }
-item_EU = {
-
+transactions = {
+    "T1": [('a', 1), ('b', 5), ('c', 1), ('d', 3), ('e', 1), ('f', 5)],
+    "T2": [('b', 4), ('c', 3), ('d', 3), ('e', 1)],
+    "T3": [('a', 1), ('c', 1), ('d', 1)],
+    "T4": [('a', 2), ('c', 6), ('e', 2), ('g', 5)],
+    "T5": [('b', 2), ('c', 2), ('e', 1), ('g', 2)],
 }
-transactions ={}
+
+# Giá trị hữu ích bên ngoài (External utility values)
+item_EU = {
+    'a': 5,
+    'b': 2,
+    'c': 1,
+    'd': 2,
+    'e': 3,
+    'f': 1,
+    'g': 1,
+}
+# item_EU = {
+
+# }
+# transactions ={}
 def read_data(file_path): 
     """
     Reads a file with item and value pairs, converting it into a transactional database.
@@ -111,25 +116,6 @@ def total_iUtil(transaction):
         total_iUtil += item[1] 
     return total_iUtil
 
-# def init_iUtil():
-#     for key, val in transactions.items():
-#         for value in val:
-#             if value[0] not in iUtil:
-#                 items= [value[0]]
-#                 sumIU = 0
-#                 for trans in findCoverset(items):
-#                     for item in transactions[trans]:
-#                         if item[0] == value[0]:  
-#                             sumIU+= item[1]
-#                 iUtil[value[0]] = sumIU
-#     return sorted(iUtil.items(), key=lambda x: x[0])
-# def init_iCov():
-#     for key, val in transactions.items():
-#         for value in val:
-#             if value[0] not in iCov:
-#                 items= [value[0]]
-#                 iCov[value[0]] = findCoverset(items)
-#     return sorted(iCov.items(), key=lambda x: x[0])
 def init_eUtil():
     for key, val in transactions.items():
         for value in val:
@@ -279,16 +265,20 @@ def isProductiveInEdom1(HUI):
     totalsup = 1
 
     for item in HUI:
-        print(item,end= " ")
-        sup = calculateSup(item,edom) / len(edom)
-        print(sup)
-        totalsup*=sup
-    print(totalsup)
-    print(str(calculateItemsetSup(HUI,edom))+ "/ " +str(len(edom)))
-    if ((calculateItemsetSup(HUI,edom)/len(edom))>= totalsup) & (totalsup!=0):
-        corHUI[HUI] = 1
-        print("Cor HUI : " + str(HUI))    
-    else: print("not a Cor HUI!")  
+        if (len(edom) ==0 ):
+            print("not a Cor HUI!")  
+            continue
+        else:
+            print(item,end= " ")
+            sup = calculateSup(item,edom) / len(edom)
+            print(sup)
+            totalsup*=sup
+        print(totalsup)
+        print(str(calculateItemsetSup(HUI,edom))+ "/ " +str(len(edom)))
+        if ((calculateItemsetSup(HUI,edom)/len(edom))>= totalsup) & (totalsup!=0):
+            corHUI[HUI] = 1
+            print("Cor HUI : " + str(HUI))    
+        else: print("not a Cor HUI!")  
                
   
 iCov = {}
@@ -307,8 +297,12 @@ def init_I():
 
 
 def main():
+    item_EU.clear()
+    transactions.clear()
+
     read_data('CHUIM+HUOPM\data\chess_UM_New.txt')
     parse_utility('CHUIM+HUOPM\data\chess_UM_UtilityTable.txt')
+
     for key,val in item_EU.items():
         print(key,val)
     init_I()
@@ -317,11 +311,11 @@ def main():
     cLine = 0
     FindUniqueItems(cLine)
 
-    FindLength1HUIs(10)
+    FindLength1HUIs(15)
 
-    # MineRemHUIs(10)
+    # MineRemHUIs(15)
     
-    print("HUIs")
+    # print("HUIs")
     
     for key,val in HUIs.items():
         print("-")
@@ -329,17 +323,19 @@ def main():
         # isProductiveInEdom1(key)
 
     # print("________________")
-    for key,val in HUIs.items():
-        print(key)
-    print("________________")
+    # for key,val in HUIs.items():
+    #     print(key,val)
+    # print("________________")
 
-    for key,val in corHUI.items():
-        print(key)
+    # for key,val in corHUI.items():
+    #     print(key,end = " ")
+    print("")
+    print(len(HUIs))
 
 
-    # print("------")
-    # for key,val in transactions.items():
-    #     print(key, val)
+    # # print("------")
+    # # for key,val in transactions.items():
+    # #     print(key, val)
 
     
 if __name__ == "__main__":
