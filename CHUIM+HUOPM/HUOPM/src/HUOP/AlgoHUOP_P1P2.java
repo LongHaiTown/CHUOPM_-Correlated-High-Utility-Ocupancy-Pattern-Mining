@@ -32,6 +32,7 @@ import java.util.Map;
  * 
  */
 public class AlgoHUOP_P1P2 {
+	Map<Integer,UO_List> map = new HashMap<>();
 	// save the result k-itemsets
 	int itemsets1 = 0;
 	int itemsets2 = 0;
@@ -239,7 +240,7 @@ public class AlgoHUOP_P1P2 {
 				mapItemToUOList.put(item, uoList);
 				// add the item to the list of high TWU items
 				listOfutilityLists.add(uoList);
-				
+				map.put(item,uoList);
 				VisitedNodeCount++;
 			}
 			// System.out.println(item+"  sup= " + mapItemToSupport.get(item));
@@ -490,7 +491,7 @@ public class AlgoHUOP_P1P2 {
 	 * @throws IOException
 	 */
 	private void HUOP_Miner(int[] prefix, UO_List pUL, List<UO_List> ULs, double minUtilityOccu) throws IOException {
-
+		
 		// For each extension X of prefix P
 		for (int i = 0; i < ULs.size(); i++) {
 			UO_List X = ULs.get(i);
@@ -503,20 +504,28 @@ public class AlgoHUOP_P1P2 {
 				if (occuOfX >= minUtilityOccu) {
 					// save to file
 					writeOut(prefix, X.item, X.support, occuOfX);
-					// if (prefix.length > 0){
-					// 	StringBuffer buffer = new StringBuffer();
-					// 	for (int j = 0; j < prefix.length; j++) {
-					// 		buffer.append(prefix[j]);
-					// 		buffer.append(' ');
-					// 	}
-					// 	System.out.println("------------");
-					// 	System.out.print(buffer + "" +X.item);
-					// 	X.showElement();	
-					// }else{
-					// 	System.out.println("------------");
-					// 	System.out.print(X.item);
-					// 	X.showElement();
-					// }
+					// checking the UOLx
+					if (prefix.length > 0){
+						StringBuffer buffer = new StringBuffer();
+						for (int j = 0; j < prefix.length; j++) {
+							buffer.append(prefix[j]);
+							buffer.append(' ');
+						}
+						System.out.println("------------");
+						System.out.print(buffer + "" +X.item);
+						X.showElement();
+						UO_List ulI = map.get(X.item);
+						System.out.println("-----" + X.item  + " " + ulI.elements.size());
+
+						for (int j = 0; j < prefix.length; j++) {
+							UO_List ulP = map.get(prefix[j]);
+							System.out.println("-----" + prefix[j]+ " " + ulP.elements.size());
+						}	
+					}else{
+						System.out.println("------------");
+						System.out.print(X.item);
+						X.showElement();
+					}
 					
 				}
 				

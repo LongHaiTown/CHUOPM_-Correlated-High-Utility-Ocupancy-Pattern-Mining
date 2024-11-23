@@ -62,19 +62,5 @@ class UO_List {
 			element.showw();
 		}
 	}
-	// public void exportToFile() {
-	// 	try (BufferedWriter writer = new BufferedWriter(new FileWriter("UOL"))) { 
-	// 		writer.write("Item: " + item + "\n"); 
-	// 		writer.write("Sum UO: " + sumUO + "\n"); 
-	// 		writer.write("Sum RUO: " + sumRUO + "\n"); 
-	// 		writer.write("Support: " + support + "\n"); 
-	// 		writer.write("Elements:\n"); 
-	// 		for (Element element : elements) { 
-	// 			writer.write(" Element: " + element.toString() + "\n"); 
-	// 		} 
-	// 		System.out.println("UO_List đã được ghi vào tệp " + " thành công."); }
-	// 	catch (IOException e) { 
-	// 		System.err.println("Đã xảy ra lỗi khi ghi vào tệp: " + e.getMessage()); 
-	// 	}
-	// }
+	
 }
