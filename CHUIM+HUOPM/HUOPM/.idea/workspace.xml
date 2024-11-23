@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="54744889-b339-4134-aaf6-5e43aced0930" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="ProjectId" id="1YA8MlqAYOilbu6u3rIGfXeBeil" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../UHUOP" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\vocation\code\HUIM_Occupancy\HUOPM\src\TestDatasets" />
+      <recent name="D:\vocation\code\HUIM_Occupancy\HUOPM\src\HUOP" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.MainTest_HUOP_P1P2P3P4">
+    <configuration name="MainTestFHMPlus" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="FHMPlus.MainTestFHMPlus" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="FHMPlus.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainTest_HUOP_P1P2P3P4" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="HUOP.MainTest_HUOP_P1P2P3P4" />
+      <module name="HUOPM" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="HUOP.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.MainTest_HUOP_P1P2P3P4" />
+        <item itemvalue="Application.MainTestFHMPlus" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="54744889-b339-4134-aaf6-5e43aced0930" name="Default Changelist" comment="" />
+      <created>1582373993028</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1582373993028</updated>
+      <workItem from="1582373997849" duration="9480000" />
+      <workItem from="1583077207173" duration="384000" />
+      <workItem from="1583153363477" duration="2124000" />
+      <workItem from="1583157514015" duration="321000" />
+      <workItem from="1583159684379" duration="662000" />
+      <workItem from="1583164442618" duration="2032000" />
+      <workItem from="1583216184404" duration="2978000" />
+      <workItem from="1583231436918" duration="3690000" />
+      <workItem from="1583421238549" duration="13790000" />
+      <workItem from="1583506593867" duration="1380000" />
+      <workItem from="1583513526901" duration="1204000" />
+      <workItem from="1583515620913" duration="668000" />
+      <workItem from="1583562081339" duration="170000" />
+      <workItem from="1583562689250" duration="285000" />
+      <workItem from="1583566094729" duration="887000" />
+      <workItem from="1583568192344" duration="62000" />
+      <workItem from="1583571346494" duration="82000" />
+      <workItem from="1583571747244" duration="305000" />
+      <workItem from="1583572337605" duration="1199000" />
+      <workItem from="1583678812155" duration="1121000" />
+      <workItem from="1584544991814" duration="3148000" />
+      <workItem from="1584610006996" duration="1666000" />
+      <workItem from="1584625408655" duration="5222000" />
+      <workItem from="1584641053425" duration="5392000" />
+      <workItem from="1584668069013" duration="1242000" />
+      <workItem from="1584678879750" duration="1384000" />
+      <workItem from="1587038736737" duration="154000" />
+      <workItem from="1587038961465" duration="23000" />
+      <workItem from="1587522619625" duration="12920000" />
+      <workItem from="1589456579650" duration="49000" />
+      <workItem from="1589718751099" duration="113000" />
+      <workItem from="1590075351290" duration="4566000" />
+      <workItem from="1590226627049" duration="4660000" />
+      <workItem from="1590236007878" duration="1795000" />
+      <workItem from="1590756015415" duration="9031000" />
+      <workItem from="1590923795007" duration="247000" />
+      <workItem from="1590924096762" duration="3798000" />
+      <workItem from="1590993019832" duration="13894000" />
+      <workItem from="1591023269658" duration="2612000" />
+      <workItem from="1591075690343" duration="1585000" />
+      <workItem from="1591087532606" duration="9590000" />
+      <workItem from="1591159124835" duration="2220000" />
+      <workItem from="1591169351689" duration="987000" />
+      <workItem from="1591180208645" duration="12778000" />
+      <workItem from="1591237424902" duration="13614000" />
+      <workItem from="1591279055703" duration="1652000" />
+      <workItem from="1591321351996" duration="2746000" />
+      <workItem from="1591324871904" duration="322000" />
+      <workItem from="1591330878759" duration="14703000" />
+      <workItem from="1591452196717" duration="1302000" />
+      <workItem from="1594776735029" duration="11944000" />
+      <workItem from="1594979427714" duration="4775000" />
+      <workItem from="1594985563164" duration="6432000" />
+      <workItem from="1600847046455" duration="937000" />
+      <workItem from="1601724669255" duration="1119000" />
+      <workItem from="1602153892275" duration="8999000" />
+      <workItem from="1603097317770" duration="2787000" />
+      <workItem from="1603450415606" duration="2414000" />
+      <workItem from="1604043203590" duration="24000" />
+      <workItem from="1606793588528" duration="1945000" />
+      <workItem from="1616202930512" duration="73000" />
+      <workItem from="1618996915996" duration="1961000" />
+      <workItem from="1619057746267" duration="5250000" />
+      <workItem from="1619090550287" duration="1294000" />
+      <workItem from="1619437546893" duration="1297000" />
+      <workItem from="1620371843861" duration="2162000" />
+      <workItem from="1620442929552" duration="487000" />
+      <workItem from="1620443801438" duration="253000" />
+      <workItem from="1620461109330" duration="1577000" />
+      <workItem from="1621082620650" duration="3473000" />
+      <workItem from="1623479249437" duration="681000" />
+      <workItem from="1625458369241" duration="790000" />
+      <workItem from="1632793383549" duration="412000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1632793423135">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1632793423135" />
+  </component>
+</project>

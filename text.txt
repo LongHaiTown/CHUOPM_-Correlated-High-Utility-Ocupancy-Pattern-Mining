@@ -1,0 +1,7 @@
+B: {'transactions_Id': [1, 4, 5, 6], 'UtX': [1, 1, 8, 2], 'UtE': [7, 3, 24, 5]}
+A: {'transactions_Id': [1, 2, 4, 6], 'UtX': [1, 9, 1, 1], 'UtE': [6, 33, 2, 4]}
+E: {'transactions_Id': [1, 2, 4, 7], 'UtX': [2, 2, 2, 6], 'UtE': [4, 31, 0, 12]}
+D: {'transactions_Id': [2, 3, 5], 'UtX': [10, 5, 10], 'UtE': [21, 3, 14]}
+G: {'transactions_Id': [2, 3, 5, 7], 'UtX': [6, 3, 3, 3], 'UtE': [15, 0, 11, 9]}
+C: {'transactions_Id': [1, 2, 5, 6, 8], 'UtX': [4, 12, 8, 4, 4], 'UtE': [0, 3, 3, 0, 9]}
+F: {'transactions_Id': [2, 5, 7, 8], 'UtX': [3, 3, 9, 9], 'UtE': [0, 0, 0, 0]}

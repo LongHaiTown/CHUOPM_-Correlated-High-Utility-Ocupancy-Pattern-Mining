@@ -1,0 +1,7 @@
+{
+    "java.project.sourcePaths": [
+        "HUOPM/src/TestDatasets",
+        "HUOPM/src/HUOP",
+        "HUOPM"
+    ]
+}
