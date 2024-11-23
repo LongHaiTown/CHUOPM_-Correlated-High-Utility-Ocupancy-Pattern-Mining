@@ -22,15 +22,6 @@ transactions = {
 }
 
 def read_data(file_path): 
-    """
-    Reads a file with item and value pairs, converting it into a transactional database.
-    
-    Args:
-        file_path (str): The path to the input text file.
-    
-    Returns:
-        dict: A transactional database with the format {"TID": [("item", value), ...]}.
-    """
     with open(file_path, 'r') as file:
         lines = file.readlines()
         for idx, line in enumerate(lines):
@@ -48,7 +39,7 @@ def parse_utility(file_path):
             for line in file:
                 if line.strip():  # Skip empty lines
                     item_id, utility = line.strip().split(", ")
-                    item_name = f"{item_id.strip()}"  # Prefix item names
+                    item_name = int(item_id.strip())  # Prefix item names
                     item_EU[item_name] = int(utility.strip())  # Convert utility to integer
     except FileNotFoundError:
         print(f"Error: File not found at {file_path}")
@@ -78,12 +69,12 @@ def total_iUtil(transaction):
     return total_iUtil
 
 
-def calculate_Item_Util_in_Trans(item,trans):
-    util = 0
-    for ite in trans:
-        if (ite[0] == item):
-            util = ite[1]*item_EU[item]
-    return int(util)
+# def calculate_Item_Util_in_Trans(item,trans):
+#     util = 0
+#     for ite in trans:
+#         if (ite[0] == item):
+#             util = ite[1]*item_EU[item]
+#     return int(util)
 
 # def calculate_Itemset_util_in_Trans(itemset,transaction):
 #     util = 0
@@ -111,21 +102,30 @@ def total_Util(transaction):
         total_Util += item[1] * item_EU[item[0]]
     return total_Util
 
-def calculate_uo_in_Trans(itemset,trans):
-    total_Occ = 0
-    for item in itemset:
-        for ite in trans:
-            if (ite[0] == item):
-                total_Occ+= calculate_Item_Util_in_Trans(ite[0],trans) / total_Util(trans)
-    return total_Occ    
+# def calculate_uo_in_Trans(itemset,trans):
+#     total_Occ = 0
+#     for item in itemset:
+#         for ite in trans:
+#             if (ite[0] == item):
+#                 total_Occ+= calculate_Item_Util_in_Trans(ite[0],trans) / total_Util(trans)
+#     return total_Occ    
 
-def calculate_Uo(itemset):
-    if(len(findCoverset(itemset))!= 0):
-        total_Occ=0
-        for trans in findCoverset(itemset):
-            total_Occ += calculate_uo_in_Trans(itemset,transactions[trans])
-        return total_Occ/len(findCoverset(itemset))
-    return 0
+def calculate_Uo(item):
+    uO = 0
+    if isinstance(item, tuple): 
+        for sub_item in item: 
+            i_UtilList = UL[sub_item]['UtX']
+            i_Cover = iCov[sub_item] 
+            for i, util in enumerate(i_UtilList): 
+                uO += util / total_Util(transactions["T" + str(i_Cover[i])]) 
+            uO /= sum(len(iCov[sub_item]) for sub_item in item) 
+    else: 
+        i_UtilList = iUtil[item] 
+        i_Cover = iCov[item] 
+        for i, util in enumerate(i_UtilList): 
+            uO += util / total_Util(transactions["T" + str(i_Cover[i])]) 
+        uO /= len(iCov[item]) 
+    return uO
 
 def calculate_TWU(itemset):
     TWU = 0
@@ -157,8 +157,13 @@ def init_I():
                 I[value[0]] = calculate_TWU(value[0])
     return sorted(I.items(), key=lambda x: x[1])
 
-def get_extension_set(itemset, total_order): 
-    last_item_index = total_order.index(itemset) 
+
+def get_extension_set(itemset, total_order):
+    if isinstance(itemset, tuple): # Lấy phần tử cuối cùng từ tuple 
+        item = itemset[-1] 
+    else:
+        item = itemset # Nếu không phải là tuple, lấy trực tiếp itemset item = itemset 
+    last_item_index = total_order.index(item) 
     extension_set = total_order[last_item_index + 1:] 
     return extension_set
 
@@ -208,56 +213,61 @@ def calculateUpperBound(Px, minSUP):
         return occu
     return 0
 
-def Prune(P,exP,minOcc,minSUP):
+def Prune(P,exP,minOcc,minSUP,Ix):
     for Px in exP:
         if((calculate_Uo(Px) > minOcc) & (len(UL[Px]['transactions_Id']) > int(len(transactions))*minSUP)):
             ResultSet.append(Px)
+            print("_")
+            print(Px)
         maxOcc = calculateUpperBound(Px,minSUP)
         if((maxOcc >= minOcc) & (len(UL[Px]['transactions_Id']) > int(len(transactions))*minSUP) ):
             exPx = []
-            for item in get_extension_set(Px,I):
-                Pxy  = Px + item
+            for item in get_extension_set(Px,Ix):
+                Pxy  = (Px,item)
                 UL[Pxy]= merge_utility_lists(UL[Px],UL[item])
+                iCov[Pxy] = list(set(iCov[Px]).intersection(set(iCov[Px])))
                 exPx.append(Pxy)
-                # print(str(Pxy)+" "+str(UL[Pxy]))
-            Prune([],exPx,minOcc,minSUP)
+                print(str(Pxy))
+            Prune([],exPx,minOcc,minSUP,Ix)
 
-ResultSet = []                   
+ResultSet = []   
+
+def update_globals(): 
+    global I
+
 def main():
 
-    # item_EU.clear()
-    # transactions.clear()
+    item_EU.clear()
+    transactions.clear()
 
-    # read_data('CHUIM+HUOPM\data\chess_UM_New.txt')
-    # parse_utility('CHUIM+HUOPM\data\chess_UM_UtilityTable.txt')
+    read_data(r'D:\CODING\PYTHON_DA\CHUIM+HUOPM\data\chess_UM_New.txt')
+    parse_utility(r'D:\CODING\PYTHON_DA\CHUIM+HUOPM\data\chess_UM_UtilityTable.txt')
 
     FindUniqueItems(0)
 
+    # for key,val in transactions.items():
+    #     print(key,val)
+    # print(calculate_util(53))
 
-    # print(UL[53])
-    # print(calculate_util('53'))
-
-    # print(iCov['53'])
-    # print(iUtil['53'])
+    # print(iCov[53])
+    # print(iUtil[53])
 
     I = init_I()
     UL = Init_UL()
 
-    print(I)
+    # # print(I)
 
-
-    I = [item[0] for item in I ]
+    I = [item[0] for item in I]
 
     print(I)
 
     for item in UL:
         UL[item]['UtE'] =(calculate_ute(item,I))
-        print(item+" "+ str(UL[item]))
 
-
-    Prune([],I,0.1,0.2)
-    for key,val in UL.items():
-        print(key + " " + str(val))
+    Prune([],I,0.1,0.2,I)
+    
+    # for key,val in UL.items():
+    #     print(key + " " + str(val))
     # # print(calculateUpperBound("GAC", 0.2))
     # # print(int(len(transactions)*0.1))
 

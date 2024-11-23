@@ -1,4 +1,3 @@
-import ast
 
 transactions = {
     "T1": [('a', 1), ('b', 5), ('c', 1), ('d', 3), ('e', 1), ('f', 5)],
@@ -300,8 +299,8 @@ def main():
     item_EU.clear()
     transactions.clear()
 
-    read_data('CHUIM+HUOPM\data\chess_UM_New.txt')
-    parse_utility('CHUIM+HUOPM\data\chess_UM_UtilityTable.txt')
+    read_data('D:\CODING\PYTHON_DA\CHUIM+HUOPM\data\chess_UM_New.txt')
+    parse_utility('D:\CODING\PYTHON_DA\CHUIM+HUOPM\data\chess_UM_UtilityTable.txt')
 
     for key,val in item_EU.items():
         print(key,val)
