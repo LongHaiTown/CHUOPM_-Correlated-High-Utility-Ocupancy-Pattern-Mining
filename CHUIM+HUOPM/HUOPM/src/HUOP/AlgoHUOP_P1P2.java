@@ -351,6 +351,14 @@ public class AlgoHUOP_P1P2 {
 		// }
 
 		endTimestamp1 = System.currentTimeMillis();
+
+		// Print out I
+
+		System.out.println("Sorted Item by ascending TWU ");
+		for (UO_List uo_List : listOfutilityLists) {
+			System.out.print(uo_List.item + " ");
+		}
+		System.out.println("");
 		// Mine the database recursively
 		HUOP_Miner(new int[0], null, listOfutilityLists, minUtilityOccu);
 
@@ -505,27 +513,27 @@ public class AlgoHUOP_P1P2 {
 					// save to file
 					writeOut(prefix, X.item, X.support, occuOfX);
 					// checking the UOLx
-					if (prefix.length > 0){
-						StringBuffer buffer = new StringBuffer();
-						for (int j = 0; j < prefix.length; j++) {
-							buffer.append(prefix[j]);
-							buffer.append(' ');
-						}
-						System.out.println("------------");
-						System.out.print(buffer + "" +X.item);
-						X.showElement();
-						UO_List ulI = map.get(X.item);
-						System.out.println("-----" + X.item  + " " + ulI.elements.size());
+					// if (prefix.length > 0){
+					// 	StringBuffer buffer = new StringBuffer();
+					// 	for (int j = 0; j < prefix.length; j++) {
+					// 		buffer.append(prefix[j]);
+					// 		buffer.append(' ');
+					// 	}
+					// 	System.out.println("------------");
+					// 	System.out.print(buffer + "" +X.item);
+					// 	X.showElement();
+					// 	UO_List ulI = map.get(X.item);
+					// 	System.out.println("-----" + X.item  + " " + ulI.elements.size());
 
-						for (int j = 0; j < prefix.length; j++) {
-							UO_List ulP = map.get(prefix[j]);
-							System.out.println("-----" + prefix[j]+ " " + ulP.elements.size());
-						}	
-					}else{
-						System.out.println("------------");
-						System.out.print(X.item);
-						X.showElement();
-					}
+					// 	for (int j = 0; j < prefix.length; j++) {
+					// 		UO_List ulP = map.get(prefix[j]);
+					// 		System.out.println("-----" + prefix[j]+ " " + ulP.elements.size());
+					// 	}	
+					// }else{
+					// 	System.out.println("------------");
+					// 	System.out.print(X.item);
+					// 	X.showElement();
+					// }
 					
 				}
 				
@@ -547,9 +555,9 @@ public class AlgoHUOP_P1P2 {
 						UO_List temp = construct(pUL, X, Y);
 						
 						/********* Pruning strategy 3: uo-list condition *********/
-						//if(temp != null && temp.support >= minSupport * tid) {
+						if(temp != null && temp.support >= minSupport * tid) {
 						   exULs.add(temp);
-					    //}
+					    }
 						
 						VisitedNodeCount++;
 					}
@@ -561,15 +569,14 @@ public class AlgoHUOP_P1P2 {
 					 * System.arraycopy(src, srcPos, dest, destPos, length);					
 					 */
 					newPrefix[prefix.length] = X.item;
-
 					// We make a recursive call to discover all itemsets with the prefix pX
 					HUOP_Miner(newPrefix, X, exULs, minUtilityOccu); 
 		
 				}else{
-			    	System.out.println("P2..."+ X.item +"   maxOccuOfX="+ maxOccuOfX);
+			    	// System.out.println("P2..."+ X.item +"   maxOccuOfX="+ maxOccuOfX);
 			    }
 			}else{
-		    	System.out.println("P1..."+ X.item +"   sup="+ X.support);
+		    	// System.out.println("P1..."+ X.item +"   sup="+ X.support);
 		    }
 			
 		}

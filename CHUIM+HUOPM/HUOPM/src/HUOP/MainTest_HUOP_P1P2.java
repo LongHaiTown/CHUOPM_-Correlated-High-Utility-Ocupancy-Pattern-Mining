@@ -16,8 +16,8 @@ public class MainTest_HUOP_P1P2 {
 //		String input = "src/TestDatasets/2DB_New.txt";  
 //		String utility_table_input = "src/TestDatasets/2DB_UtilityTable.txt";  
 		
-		String input = "src/TestDatasets/1HUOP_New.txt";  
-		String utility_table_input = "src/TestDatasets/1HUOP_UtilityTable.txt";  
+		String input = "src/TestDatasets/2DB_New.txt";  
+		String utility_table_input = "src/TestDatasets/2DB_UtilityTable.txt";  
 		String output = ".//output_HUOI.txt";
 
 		//==============================
