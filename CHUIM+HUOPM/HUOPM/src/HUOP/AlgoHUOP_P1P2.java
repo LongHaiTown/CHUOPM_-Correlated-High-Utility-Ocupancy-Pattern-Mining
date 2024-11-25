@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -123,7 +124,7 @@ public class AlgoHUOP_P1P2 {
 	 */
 
 	public void runAlgorithm(String input, String utility_table_input, String output,
-			double minSupport_ratio, double utilOccu_ratio) throws IOException {
+			double minSupport_ratio, double utilOccu_ratio, double minMeasure) throws IOException {
 		// reset maximum
 		maxMemory = 0;
 
@@ -354,13 +355,14 @@ public class AlgoHUOP_P1P2 {
 
 		// Print out I
 
-		System.out.println("Sorted Item by ascending TWU ");
-		for (UO_List uo_List : listOfutilityLists) {
-			System.out.print(uo_List.item + " ");
-		}
-		System.out.println("");
+		// System.out.println("Sorted Item by ascending TWU ");
+		// for (UO_List uo_List : listOfutilityLists) {
+		// 	System.out.print(uo_List.item + " ");
+		// }
+		// System.out.println("");
+
 		// Mine the database recursively
-		HUOP_Miner(new int[0], null, listOfutilityLists, minUtilityOccu);
+		HUOP_Miner(new int[0], null, listOfutilityLists, minUtilityOccu ,minMeasure);
 
 		// check the memory usage again and close the file.
 		checkMemory();
@@ -498,7 +500,7 @@ public class AlgoHUOP_P1P2 {
 	 *            The minUtilityOccu threshold.
 	 * @throws IOException
 	 */
-	private void HUOP_Miner(int[] prefix, UO_List pUL, List<UO_List> ULs, double minUtilityOccu) throws IOException {
+	private void HUOP_Miner(int[] prefix, UO_List pUL, List<UO_List> ULs, double minUtilityOccu ,double minMeasure) throws IOException {
 		
 		// For each extension X of prefix P
 		for (int i = 0; i < ULs.size(); i++) {
@@ -510,31 +512,13 @@ public class AlgoHUOP_P1P2 {
 				// we save the itemset: pX				
 				double occuOfX = X.getAvegUO();
 				if (occuOfX >= minUtilityOccu) {
-					// save to file
-					writeOut(prefix, X.item, X.support, occuOfX);
-					// checking the UOLx
-					// if (prefix.length > 0){
-					// 	StringBuffer buffer = new StringBuffer();
-					// 	for (int j = 0; j < prefix.length; j++) {
-					// 		buffer.append(prefix[j]);
-					// 		buffer.append(' ');
-					// 	}
-					// 	System.out.println("------------");
-					// 	System.out.print(buffer + "" +X.item);
-					// 	X.showElement();
-					// 	UO_List ulI = map.get(X.item);
-					// 	System.out.println("-----" + X.item  + " " + ulI.elements.size());
-
-					// 	for (int j = 0; j < prefix.length; j++) {
-					// 		UO_List ulP = map.get(prefix[j]);
-					// 		System.out.println("-----" + prefix[j]+ " " + ulP.elements.size());
-					// 	}	
-					// }else{
-					// 	System.out.println("------------");
-					// 	System.out.print(X.item);
-					// 	X.showElement();
-					// }
-					
+					// Check Correltation between items in an itemset All-Confidence
+					double allConfidence = AllConfidence(prefix, X.item, X) ;
+					if ( allConfidence > minMeasure) 
+						writeOut(prefix, X.item, X.support, occuOfX ,allConfidence);
+					else { 
+						continue;
+					}
 				}
 				
 				// If the upper-bound is higher than minUtilityOccu, we explore extensions of pX.
@@ -570,7 +554,7 @@ public class AlgoHUOP_P1P2 {
 					 */
 					newPrefix[prefix.length] = X.item;
 					// We make a recursive call to discover all itemsets with the prefix pX
-					HUOP_Miner(newPrefix, X, exULs, minUtilityOccu); 
+					HUOP_Miner(newPrefix, X, exULs, minUtilityOccu,minMeasure); 
 		
 				}else{
 			    	// System.out.println("P2..."+ X.item +"   maxOccuOfX="+ maxOccuOfX);
@@ -619,6 +603,24 @@ public class AlgoHUOP_P1P2 {
 			return maxOccu/(int) (minSupport * tid);
 		}
 	}
+
+		// ****************  Correlated Utility-Occupancy Counting **************
+	/**
+	 * Calculate the AllConfidence
+	 * 
+	 * @param ULOfX
+	 * @return
+	 */
+	private double AllConfidence(int[] prefix, int item ,UO_List ULOfX) {
+		List<Double>  p_support = new ArrayList<Double>() ;
+		for (int i : prefix) {
+			UO_List u = map.get(i);
+			p_support.add((double)u.support);
+		}
+		p_support.add((double)map.get(item).support);
+		return ULOfX.support/Collections.max(p_support);
+	}
+
 	// ****************  Utility-Occupancy Counting **************
 	
 
@@ -728,7 +730,7 @@ public class AlgoHUOP_P1P2 {
 	 * @param utility
 	 *            the utility of the prefix concatenated with the item
 	 */
-	private void writeOut(int[] prefix, int item, int sup, double uo) throws IOException {
+	private void writeOut(int[] prefix, int item, int sup, double uo, double allConfidence) throws IOException {
 		HUOPCount++; // increase the number of high utility-occupancy itemsets found
 
 		if (prefix.length == 0) {
@@ -770,6 +772,8 @@ public class AlgoHUOP_P1P2 {
 		// append the utility-occupancy value
 		buffer.append(", uo= " + String.format("%.6f", uo));
 		
+		buffer.append(", all-conf= " + String.format("%.6f", allConfidence));
+
 		// ***********  output **************
 //		List<Double> list_topK = new ArrayList<Double>();
 		if(list_topK.size() < 10) {

@@ -16,13 +16,14 @@ public class MainTest_HUOP_P1P2 {
 //		String input = "src/TestDatasets/2DB_New.txt";  
 //		String utility_table_input = "src/TestDatasets/2DB_UtilityTable.txt";  
 		
-		String input = "src/TestDatasets/2DB_New.txt";  
-		String utility_table_input = "src/TestDatasets/2DB_UtilityTable.txt";  
+		String input = "src/TestDatasets/mushroom_UM_New.txt";  
+		String utility_table_input = "src/TestDatasets/mushroom_UM_UtilityTable.txt";  
 		String output = ".//output_HUOI.txt";
 
 		//==============================
-		double minSupport = 0.011;  // the minimum support threshold, (0,1]
+		double minSupport = 0.24;  // the minimum support threshold, (0,1]
 		double minUtilOccu = 0.3;  // the minimum utility occupancy threshold, (0,1]
+		double minMeasure = 0.2;
 		int k=1;
 		//==============================
 		
@@ -33,10 +34,9 @@ public class MainTest_HUOP_P1P2 {
 		System.out.println(" minUtilOccu: " + String.format("%.6f", minUtilOccu));
 
 		for(int i=0; i<k; i++){
-			//System.out.println(" �������"+i+"��������� ");
 			// Applying the HUOP algorithm
 			AlgoHUOP_P1P2 HUOP = new AlgoHUOP_P1P2();
-			HUOP.runAlgorithm(input, utility_table_input, output, minSupport, minUtilOccu);
+			HUOP.runAlgorithm(input, utility_table_input, output, minSupport, minUtilOccu, minMeasure);
 			HUOP.printStats();
 			SumTime += HUOP.Time();
 		}
